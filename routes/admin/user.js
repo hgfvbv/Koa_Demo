@@ -3,8 +3,11 @@ const router = require('koa-router')();
 
 router.get('/', async (ctx) => {
 
-    ctx.body = "用户管理";
+    await ctx.render('admin/user/index');
 
+}).get('/add', async (ctx) => {
+    await ctx.render('admin/user/add');
 });
+
 
 module.exports = router.routes();

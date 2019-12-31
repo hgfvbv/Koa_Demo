@@ -8,12 +8,12 @@
 
 	<!-- basic styles -->
 
-	<link href="{{__HOST__}}/admin/css/bootstrap.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{{__HOST__}}/admin/css/font-awesome.min.css" />
+	<link href="{{__ROOT__}}/admin/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{__ROOT__}}/admin/css/font-awesome.min.css" />
 
 	<!-- fonts -->
-	<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace.min.css" />
-	<link rel="stylesheet" href="{{__HOST__}}/admin/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="{{__ROOT__}}/admin/css/ace.min.css" />
+	<link rel="stylesheet" href="{{__ROOT__}}/admin/css/ace-rtl.min.css" />
 
 	<style type="text/css">
 		.login-layout {
@@ -59,18 +59,20 @@
 
 										<div class="space-6"></div>
 
-										<form>
+										<form action='{{__ROOT__}}/admin/login/doLogin' method="POST" id="loginForm">
 											<fieldset>
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="text" class="form-control" placeholder="用户名" />
+														<input type="text" class="form-control" name="username"
+															placeholder="用户名" />
 														<i class="icon-user"></i>
 													</span>
 												</label>
 
 												<label class="block clearfix">
 													<span class="block input-icon input-icon-right">
-														<input type="password" class="form-control" placeholder="密码" />
+														<input type="password" class="form-control" name="password"
+															placeholder="密码" />
 														<i class="icon-lock"></i>
 													</span>
 												</label>
@@ -93,7 +95,7 @@
 														<span class="lbl"> Remember Me</span>
 													</label>
 
-													<button type="button"
+													<button type="submit"
 														class="width-35 pull-right btn btn-sm btn-primary">
 														<i class="icon-key"></i>
 														登录

@@ -1,14 +1,25 @@
 const router = require('koa-router')(),
     login = require('./admin/login'),
+    url = require('url'),
     user = require('./admin/user');
 
 router.use(async (ctx, next) => {
-    ctx.state.__HOST__ = 'http://' + ctx.request.header.host;
-    await next();
+    ctx.state.__ROOT__ = 'http://' + ctx.request.header.host;
+
+    let pathname = url.parse(ctx.url).pathname;
+    if (ctx.session.userinfo) {
+        await next();
+    } else {
+        if (pathname == '/admin/login' || pathname == '/admin/login/doLogin') {
+            await next();
+        } else {
+            ctx.redirect('/admin/login');
+        }
+    }
 });
 
 router.get('/', async (ctx) => {
-    ctx.body = "后台管理";
+    await ctx.render('admin/index');
 });
 
 router.use('/login', login)
