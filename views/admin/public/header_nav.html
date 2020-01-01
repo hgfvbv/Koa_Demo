@@ -1,9 +1,4 @@
-<div class="navbar navbar-default" id="navbar">
-    <script type="text/javascript">
-        try { ace.settings.check('navbar', 'fixed') } catch (e) { }
-    </script>
-
-    <div class="navbar-container" id="navbar-container">
+ <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="#" class="navbar-brand">
                 <small>
@@ -21,7 +16,7 @@
                         <img class="nav-user-photo" src="{{__ROOT__}}/admin/avatars/user.jpg" alt="Jason's Photo" />
                         <span class="user-info">
                             <small>欢迎光临,</small>
-                            hgfvbv
+                            {{G.userinfo.username}}
                         </span>
 
                         <i class="icon-caret-down"></i>
@@ -35,17 +30,10 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="#">
-                                <i class="icon-user"></i>
-                                个人资料
-                            </a>
-                        </li>
-
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a id="btnExit" href="javascript:void(0);">
                                 <i class="icon-off"></i>
                                 退出
                             </a>
@@ -53,6 +41,14 @@
                     </ul>
                 </li>
             </ul><!-- /.ace-nav -->
+            <script src='{{__HOST__}}/admin/js/jquery-2.0.3.min.js'></script>
+            <script>
+                $('#btnExit').click(function () {
+                    if (confirm('您确定要退出吗？')) {
+                        location.href = '{{__ROOT__}}/admin/login/loginOut';
+                    }
+                });
+            </script>
         </div><!-- /.navbar-header -->
     </div><!-- /.container -->
 </div>
