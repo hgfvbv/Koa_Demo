@@ -19,6 +19,8 @@ router.get('/', async (ctx) => {
             let result = await DB.find('admin', { username, "password": tools.md5(tools.md5(password)) });
 
             if (result.length > 0) {
+                await DB.update('admin', { '_id': DB.getObjectId(result[0]._id) }, { 'last_time': new Date() });
+
                 ctx.session.userinfo = {
                     _id: result[0]._id,
                     username: result[0].username,

@@ -4,6 +4,8 @@ const Koa = require('koa'),
     static = require('koa-static'),
     session = require('koa-session'),
     bodyparser = require('koa-bodyparser'),
+    sd = require('silly-datetime'),
+    jsonp = require('koa-jsonp'),
     path = require('path'),
     app = new Koa(),
     admin = require('./routes/admin'),
@@ -27,7 +29,10 @@ const CONFIG = {
 render(app, {
     root: path.join(__dirname, 'views'),
     extname: '.html',
-    debug: process.env.NODE_ENV !== 'production'
+    debug: process.env.NODE_ENV !== 'production',
+    dateFormat: dateFormat = function (value) {
+        return sd.format(value, 'YYYY-MM-DD HH:mm:ss');
+    }
 });
 
 router.use('/admin', admin)
@@ -35,6 +40,7 @@ router.use('/admin', admin)
     .use(index);
 
 app.use(bodyparser())
+    .use(jsonp())
     .use(session(CONFIG, app))
     .use(static(path.join(__dirname, 'public')))
     .use(router.routes())

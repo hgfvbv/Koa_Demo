@@ -77,18 +77,20 @@
                                     <td>
                                         {{$value.username}}
                                     </td>
-                                    <td>最后登录的时间</td>
+                                    <td>{{$value.last_time | dateFormat}}</td>
 
                                     <td class="hidden-480">
-                                        <button class="btn btn-xs btn-success">
-                                            <i class="icon-ok bigger-120 success"></i>
-                                        </button>
+                                        {{if $value.status==1}}
+                                        <img src="{{__ROOT__}}/admin/images/yes.gif"
+                                            onclick="app.toggle(this,'admin','status','{{@$value._id}}')" alt="激活">
+                                        {{else}}
+                                        <img src="{{__ROOT__}}/admin/images/no.gif"
+                                            onclick="app.toggle(this,'admin','status','{{@$value._id}}')" alt="锁定">
+                                        {{/if}}
                                     </td>
 
                                     <td>
                                         <div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
-
-
                                             <button class="btn btn-xs btn-info">
                                                 <i class="icon-edit bigger-120"></i>
                                             </button>
