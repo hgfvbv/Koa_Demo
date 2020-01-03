@@ -63,11 +63,15 @@
                                     <th class="center">管理员</th>
                                     <th class="center">
                                         <i class="icon-time bigger-110 hidden-480"></i>
-                                        最后登录
+                                        创建日期
+                                    </th>
+                                    <th class="center">
+                                        <i class="icon-time bigger-110 hidden-480"></i>
+                                        最后登录日期
                                     </th>
                                     <th class="center">状态</th>
 
-                                    <th width="80px;" class="center">操作</th>
+                                    <th width="100px;" class="center">操作</th>
                                 </tr>
                             </thead>
 
@@ -77,6 +81,7 @@
                                     <td>
                                         {{$value.username}}
                                     </td>
+                                    <td>{{$value.add_time | dateFormat}}</td>
                                     <td>{{$value.last_time | dateFormat}}</td>
 
                                     <td class="hidden-480">
@@ -91,14 +96,15 @@
 
                                     <td>
                                         <div class="visible-md visible-lg hidden-sm hidden-xs btn-group center">
-                                            <button class="btn btn-xs btn-info">
-                                                <i class="icon-edit bigger-120"></i>
-                                            </button>
+                                            <a href="{{__ROOT__}}/admin/manage/edit?id={{@$value._id}}">
+                                                <button class="btn btn-xs btn-info">
+                                                    <i class="icon-edit bigger-120"></i>
+                                                </button></a>
                                             &nbsp;
-                                            <button class="btn btn-xs btn-danger">
-                                                <i class="icon-trash bigger-120"></i>
-                                            </button>
-
+                                            <a href="{{__ROOT__}}/admin/manage/delete?id={{@$value._id}}">
+                                                <button class="btn btn-xs btn-danger">
+                                                    <i class="icon-trash bigger-120"></i>
+                                                </button></a>
                                         </div>
 
                                     </td>

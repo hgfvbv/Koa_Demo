@@ -50,18 +50,19 @@
 
                     <div class="page-header">
                         <h1>
-                            添加管理员
+                            编辑管理员
                         </h1>
                     </div><!-- /.page-header -->
-                    <form id="addForm" action="{{__ROOT__}}/admin/manage/doAdd" method="post" class="form-horizontal"
+                    <form id="editForm" action="{{__ROOT__}}/admin/manage/doEdit" method="post" class="form-horizontal"
                         role="form">
+                        <input type="hidden" name='id' value="{{@list._id}}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label no-padding-right"
                                 for="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名:</label>
 
                             <div class="col-sm-10">
-                                <input type="text" id="username" placeholder="请输入用户名(4-20位)" name="username"
-                                    class="col-xs-10 col-sm-5" />
+                                <input type="text" readonly id="username" placeholder="请输入用户名(4-20位)" name="username"
+                                    class="col-xs-10 col-sm-5" value="{{list.username}}" />
                             </div>
                         </div>
 
@@ -111,7 +112,7 @@
     <script src='{{__HOST__}}/admin/js/jquery-2.0.3.min.js'></script>
     <script>
         $(function () {
-            $('#addForm').submit(function () {
+            $('#editForm').submit(function () {
                 var parms = {
                     username: $('#username').val(),
                     password: $('#password').val(),
@@ -125,19 +126,15 @@
                     alert('用户名长度须在4-20位之间！');
                     return false;
                 }
-                if (parms.password == '') {
-                    alert('请输入密码！');
-                    return false;
-                }
-                if (parms.password.length < 6) {
+                if (parms.password != '' && parms.password.length < 6) {
                     alert('密码长度须不小于6位！');
                     return false;
                 }
-                if (parms.rpassword == '') {
+                if (parms.password != '' && parms.rpassword == '') {
                     alert('请再次输入密码！');
                     return false;
                 }
-                if (parms.rpassword != parms.password) {
+                if (parms.password != '' && parms.rpassword != parms.password) {
                     $('#password').val('');
                     $('#rpassword').val('');
                     alert('两次密码不一致！');

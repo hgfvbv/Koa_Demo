@@ -13,21 +13,29 @@ router.get('/', async (ctx) => {
         password = ctx.request.body.password,
         code = ctx.request.body.code;
 
-    if (code == ctx.session.code) {
+    if (code.toLocaleLowerCase() == ctx.session.code.toLocaleLowerCase()) {
         //判断用户名和密码是否只有数字和字母
         if (validator.isAlphanumeric(username) && validator.isAlphanumeric(password)) {
             let result = await DB.find('admin', { username, "password": tools.md5(tools.md5(password)) });
 
             if (result.length > 0) {
-                await DB.update('admin', { '_id': DB.getObjectId(result[0]._id) }, { 'last_time': new Date() });
+                if (result[0].status == 1) {
+                    await DB.update('admin', { '_id': DB.getObjectId(result[0]._id) }, { 'last_time': new Date() });
 
-                ctx.session.userinfo = {
-                    _id: result[0]._id,
-                    username: result[0].username,
-                    status: result[0].status
-                };
-                ctx.session.code = null;
-                ctx.redirect(`${ctx.state.__ROOT__}/admin`);
+                    ctx.session.userinfo = {
+                        _id: result[0]._id,
+                        username: result[0].username,
+                        status: result[0].status
+                    };
+                    ctx.session.code = null;
+                    ctx.redirect(`${ctx.state.__ROOT__}/admin`);
+                } else {
+                    await ctx.render('admin/error', {
+                        title,
+                        msg: '对不起！该账户已被锁定！',
+                        redirect: `${ctx.state.__ROOT__}/admin/login`
+                    });
+                }
             } else {
                 await ctx.render('admin/error', {
                     title,
@@ -36,7 +44,7 @@ router.get('/', async (ctx) => {
                 });
             }
         } else {
-            console.log('有特殊字符');
+            console.log('后台警告：登陆用户名或密码有特殊字符！');
             await ctx.render('admin/error', {
                 title,
                 msg: '对不起！用户名或密码错误！',
