@@ -25,7 +25,8 @@ router.get('/', async (ctx) => {
                     ctx.session.userinfo = {
                         _id: result[0]._id,
                         username: result[0].username,
-                        status: result[0].status
+                        status: result[0].status,
+                        img_url: result[0].img_url
                     };
                     ctx.session.code = null;
                     ctx.redirect(`${ctx.state.__ROOT__}/admin`);

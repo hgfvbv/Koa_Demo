@@ -33,10 +33,41 @@ class DB {
         });
     }
 
-    find(collectionName, json) {
+    find(collectionName, whereJson, paramsJson, pageJson) {
+        let pageIndex = 0,
+            pageSize = 0,
+            attrJson = {},
+            sortJson = {};
+        switch (arguments.length) {
+            case 2:
+                attrJson = {};
+                break;
+            case 3:
+                if (paramsJson.sort) {
+                    sortJson = paramsJson.sort;
+                }
+                if (paramsJson.attr) {
+                    attrJson = paramsJson.attr
+                }
+                break;
+            case 4:
+                if (paramsJson.sort) {
+                    sortJson = paramsJson.sort;
+                }
+                if (paramsJson.attr) {
+                    attrJson = paramsJson.attr
+                }
+                pageIndex = pageJson.pageIndex || 1;
+                pageSize = pageJson.pageSize || 10;
+                break;
+            default:
+                console.log('后台警告：数据库查询参数错误！');
+                break;
+        }
+
         return new Promise((resolve, reject) => {
             this.connect().then((db) => {
-                let data = db.collection(collectionName).find(json);
+                let data = db.collection(collectionName).find(whereJson, { fields: attrJson }).skip((pageIndex - 1) * pageSize).limit(pageSize).sort(sortJson);
                 data.toArray((err, docs) => {
                     if (err) {
                         reject(err);
@@ -91,6 +122,21 @@ class DB {
 
     getObjectId(id) {
         return new ObjectID(id);
+    }
+
+    getTotalCount(collectionName, whereJson) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.connect().then((db) => {
+                    let result = db.collection(collectionName).count(whereJson);
+                    result.then((count) => {
+                        resolve(count);
+                    });
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 }
 
