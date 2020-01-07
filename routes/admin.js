@@ -9,7 +9,10 @@ const router = require('koa-router')(),
     validator = require('validator'),
     DB = require('../model/dbHelper'),
     article = require('./admin/article'),
-    request = require('request');
+    focus = require('./admin/focus'),
+    link = require('./admin/link'),
+    nav = require('./admin/nav'),
+    setting = require('./admin/setting');
 
 router.use(async (ctx, next) => {
     ctx.state.__ROOT__ = 'http://' + ctx.request.header.host;
@@ -94,6 +97,10 @@ router.use(index)
     .use('/user', user)
     .use('/manage', manage)
     .use('/articlecate', articlecate)
-    .use('/article', article);
+    .use('/article', article)
+    .use('/focus', focus)
+    .use('/link', link)
+    .use('/nav', nav)
+    .use('/setting', setting);
 
 module.exports = router.routes();

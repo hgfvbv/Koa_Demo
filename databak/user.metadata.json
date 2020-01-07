@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"KoaCms.user"}],"uuid":"b4b0c15c1a5549cd908eef24cada84cd"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"KoaCms.user"}],"uuid":"d25f560a79f2480e880bb2bd1a45da75"}

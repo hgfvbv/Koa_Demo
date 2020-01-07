@@ -117,7 +117,7 @@
             </ul>
         </li>
 
-        <li>
+        <li {{if G.url[1]=="focus"}}class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-picture"></i>
                 <span class="menu-text"> 轮播图管理 </span>
@@ -126,89 +126,82 @@
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
+                <li {{if G.url.length==2 && G.url[1]=="focus" || G.url[2]=="edit"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/focus">
                         <i class="icon-double-angle-right"></i>
                         轮播图列表
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li {{if G.url[2]=="add" && G.url[1]=="focus"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/focus/add">
                         <i class="icon-double-angle-right"></i>
                         增加轮播图
                     </a>
                 </li>
-
-
             </ul>
         </li>
 
-        <li>
+        <li {{if G.url[1]=="link"}}class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-paperclip"></i>
-
                 <span class="menu-text">
                     友情链接管理
-                    <span class="badge badge-primary ">5</span>
+                    <!-- <span class="badge badge-primary ">5</span> -->
                 </span>
 
                 <b class="arrow icon-angle-down"></b>
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
+                <li {{if G.url.length==2 && G.url[1]=="link" || G.url[2]=="edit"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/link">
                         <i class="icon-double-angle-right"></i>
                         友情链接列表
                     </a>
                 </li>
 
-                <li>
-                    <a href="#">
+                <li {{if G.url[2]=="add" && G.url[1]=="link"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/link/add">
                         <i class="icon-double-angle-right"></i>
                         增加友情链接
                     </a>
                 </li>
             </ul>
-
-
         </li>
 
-        <li>
+        <li {{if G.url[1]=="nav"}}class="active open" {{/if}}>
             <a href="#" class="dropdown-toggle">
                 <i class="icon-list-alt"></i>
 
                 <span class="menu-text">
                     导航管理
-                    <span class="badge badge-primary ">5</span>
+                    <!-- <span class="badge badge-primary ">5</span> -->
                 </span>
 
                 <b class="arrow icon-angle-down"></b>
             </a>
 
             <ul class="submenu">
-                <li>
-                    <a href="#">
-                        <i class="icon-double-angle-right"></i>
-                        增加导航
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
+                <li {{if G.url.length==2 && G.url[1]=="nav" || G.url[2]=="edit"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/nav">
                         <i class="icon-double-angle-right"></i>
                         导航列表
                     </a>
                 </li>
+                <li {{if G.url[2]=="add" && G.url[1]=="nav"}}class="active" {{/if}}>
+                    <a href="{{__ROOT__}}/admin/nav/add">
+                        <i class="icon-double-angle-right"></i>
+                        增加导航
+                    </a>
+                </li>
             </ul>
-
-
         </li>
 
 
 
-        <li>
-            <a href="index.html">
+        <li {{if G.url.length==2 && G.url[1]=="setting" || G.url[2]=="edit"}}class="active" {{/if}}>
+            <a href="{{__ROOT__}}/admin/setting">
                 <i class="icon-cog"></i>
                 <span class="menu-text"> 系统设置 </span>
             </a>

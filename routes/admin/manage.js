@@ -1,34 +1,8 @@
 const router = require('koa-router')(),
     validator = require('validator'),
-    multer = require('koa-multer'),
-    fs = require('fs'),
-    mkdirp = require('mkdirp'),
     tools = require('../../model/tools'),
     DB = require('../../model/dbHelper');
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        let path = 'public/upload/admin';
-        fs.exists(path, (exists) => {
-            if (!exists) {
-                mkdirp(path, (err) => {
-                    if (err) {
-                        console.log(`后台警告：增加内容创建上传图片文件夹错误！ ${err}`);
-                    } else {
-                        cb(null, path);   /*配置图片上传的目录     注意：图片上传的目录必须存在*/
-                    }
-                });
-            } else {
-                cb(null, path);   /*配置图片上传的目录     注意：图片上传的目录必须存在*/
-            }
-        });
-    },
-    filename: (req, file, cb) => {   /*图片上传完成重命名*/
-        let fileFormat = (file.originalname).split(".");   /*获取后缀名  分割数组*/
-        cb(null, `${Date.now()}.${fileFormat[fileFormat.length - 1]}`);
-    }
-});
-var upload = multer({ storage });
 
 router.get('/', async (ctx) => {
     let result = await DB.find('admin', {});
@@ -36,7 +10,7 @@ router.get('/', async (ctx) => {
 
 }).get('/add', async (ctx) => {
     await ctx.render('admin/manage/add');
-}).post('/doAdd', upload.single('img_url'), async (ctx) => {
+}).post('/doAdd', tools.multerInit('public/upload/admin').single('img_url'), async (ctx) => {
     let username = ctx.req.body.username,
         password = ctx.req.body.password,
         rpassword = ctx.req.body.rpassword,
@@ -93,7 +67,7 @@ router.get('/', async (ctx) => {
     let _id = DB.getObjectId(ctx.query.id);
     let list = (await DB.find('admin', { _id }))[0];
     await ctx.render('admin/manage/edit', { list });
-}).post('/doEdit', upload.single('img_url'), async (ctx) => {
+}).post('/doEdit', tools.multerInit('public/upload/admin').single('img_url'), async (ctx) => {
     let id = ctx.req.body.id,
         username = ctx.req.body.username,
         password = ctx.req.body.password,

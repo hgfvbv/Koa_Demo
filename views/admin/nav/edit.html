@@ -1,0 +1,136 @@
+{{@include('admin/public/header.html')}}
+
+<body>
+    <div class="navbar navbar-default" id="navbar">
+        <script type="text/javascript">
+            try { ace.settings.check('navbar', 'fixed') } catch (e) { }
+        </script>
+
+        {{@include('admin/public/header_nav.html')}}
+    </div>
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+
+        <div class="main-container-inner">
+            <a class="menu-toggler" id="menu-toggler" href="#">
+                <span class="menu-text"></span>
+            </a>
+
+            {{@include('admin/public/nav.html')}}
+
+            <div class="main-content">
+                <div class="breadcrumbs" id="breadcrumbs">
+                    <script type="text/javascript">
+                        try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                    </script>
+
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home home-icon"></i>
+                            <a href="#">首页</a>
+                        </li>
+                        <li class="active">控制台</li>
+                    </ul><!-- .breadcrumb -->
+
+                    <div class="nav-search" id="nav-search">
+                        <form class="form-search">
+                            <span class="input-icon">
+                                <input type="text" placeholder="Search ..." class="nav-search-input"
+                                    id="nav-search-input" autocomplete="off" />
+                                <i class="icon-search nav-search-icon"></i>
+                            </span>
+                        </form>
+                    </div><!-- #nav-search -->
+                </div>
+
+                <div class="page-content">
+
+                    <div class="page-header">
+                        <h1>
+                            编辑友情链接
+                        </h1>
+                    </div><!-- /.page-header -->
+                    <form id="editForm" action="{{__HOST_}}/admin/nav/doEdit" method="post" class="form-horizontal"
+                        style="border:1px solid #eee;">
+                        <input type="hidden" name="id" value="{{@list._id}}">
+                        <input type="hidden" name="prevPage" value="{{@prevPage}}">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right"
+                                for="title">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称:</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" id="title" name="title" placeholder="请输入名称"
+                                    class="col-xs-10 col-sm-5" value="{{list.title}}" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="url">链接地址：</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="请输入链接地址" id="url" name="url" value="{{list.url}}"
+                                    class="col-xs-10 col-sm-5" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label
+                                class="col-sm-2 control-label no-padding-right">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label>
+                            <div class="col-sm-10">
+                                <label for="status1">已审核：</label><input type="radio" name="status" id="status1"
+                                    value="1" {{if list.status==1}}checked{{/if}} />
+                                &nbsp;
+                                <label for="status2">未审核：</label><input type="radio" name="status" id="status2"
+                                    value="0" {{if list.status==0}}checked{{/if}} />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="description"></label>
+
+                            <div class="col-sm-10">
+                                <button type="submit" class="btn btn-primary">提交</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a {{if prevPage==''}}href="{{__ROOT__}}/admin/nav" {{else}}href="{{prevPage}}" {{/if}}>
+                                    <button class="btn btn-primary" type="button">返回</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.main-content -->
+
+        </div><!-- /.main-container-inner -->
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="icon-double-angle-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+
+
+    {{@include('admin/public/footer.html')}}
+    <script src='{{__ROOT__}}/admin/js/jquery-2.0.3.min.js'></script>
+    <script>
+        $(function () {
+            $('#editForm').submit(function () {
+                var parms = {
+                    title: $('#title').val(),
+                    url: $('#url').val()
+                };
+                if (parms.title == '') {
+                    alert('请输入名称！');
+                    return false;
+                }
+                if (parms.url == '') {
+                    alert('请输入链接地址！');
+                    return false;
+                }
+                return true;
+            });
+        });
+    </script>
+</body>
+
+</html>
