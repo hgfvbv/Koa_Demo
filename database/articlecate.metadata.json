@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"KoaCms.articlecate"}],"uuid":"e79e438e9c71477d854a9365bf0c6ad3"}

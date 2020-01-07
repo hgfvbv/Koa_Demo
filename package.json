@@ -22,6 +22,7 @@
     "md5": "^2.2.1",
     "mkdirp": "^0.5.1",
     "mongodb": "^3.4.1",
+    "request": "^2.88.0",
     "silly-datetime": "^0.1.2",
     "svg-captcha": "^1.4.0",
     "validator": "^12.1.0"

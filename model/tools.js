@@ -27,6 +27,14 @@ let tools = {
     },
     getTime() {
         return new Date();
+    },
+    cookieOptions() {
+        return {
+            path: '/admin',   //cookie写入的路径
+            maxAge: 604800000,   //7天有效期  1000 * 60 * 60 * 24 * 7
+            httpOnly: false,
+            overwrite: false
+        };
     }
 };
 

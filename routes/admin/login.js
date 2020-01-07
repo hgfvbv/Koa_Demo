@@ -5,15 +5,16 @@ const router = require('koa-router')(),
     tools = require('../../model/tools'),
     title = 'hgfvbv:CMS后台管理系统';
 
-
 router.get('/', async (ctx) => {
     await ctx.render('admin/login', { title });
 }).post('/doLogin', async (ctx) => {
-    let username = ctx.request.body.username,
-        password = ctx.request.body.password,
-        code = ctx.request.body.code;
+    let username = ctx.request.body.username.trim(),
+        password = ctx.request.body.password.trim(),
+        code = ctx.request.body.code ? ctx.request.body.code.trim() : '',  //必须如此，否则数据为空时会出现异常
+        sessionCode = ctx.session.code ? ctx.session.code.toString() : '', //必须如此，否则数据为空时会出现异常
+        isRemember = ctx.request.body.isRemember;
 
-    if (code.toLocaleLowerCase() == ctx.session.code.toLocaleLowerCase()) {
+    if (code.toLocaleLowerCase() == sessionCode.toLocaleLowerCase()) {
         //判断用户名和密码是否只有数字和字母
         if (validator.isAlphanumeric(username) && validator.isAlphanumeric(password)) {
             let result = await DB.find('admin', { username, "password": tools.md5(tools.md5(password)) });
@@ -21,13 +22,25 @@ router.get('/', async (ctx) => {
             if (result.length > 0) {
                 if (result[0].status == 1) {
                     await DB.update('admin', { '_id': DB.getObjectId(result[0]._id) }, { 'last_time': new Date() });
-
-                    ctx.session.userinfo = {
+                    let data = {
                         _id: result[0]._id,
                         username: result[0].username,
                         status: result[0].status,
                         img_url: result[0].img_url
                     };
+
+                    if (isRemember != undefined) {
+                        let dataC = {
+                            username: result[0].username,
+                            password: result[0].password
+                        };
+                        let buffer = new Buffer(JSON.stringify(dataC)).toString('base64');
+                        ctx.cookies.set('userCache', buffer, tools.cookieOptions());
+                    } else {
+                        ctx.cookies.set('userCache', null, { path: '/admin', expires: new Date('2010/12/31') });
+                    }
+                    ctx.session.userinfo = data;
+
                     ctx.session.code = null;
                     ctx.redirect(`${ctx.state.__ROOT__}/admin`);
                 } else {
