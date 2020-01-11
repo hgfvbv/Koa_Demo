@@ -48,7 +48,7 @@ router.get('/', async (ctx) => {
     //需用multer指定的ctx.req.body取值，ctx.req.file.path获取上传好的图片路径
 
     let title = ctx.req.body.title.trim(),
-        status = ctx.req.body.status,
+        status = parseInt(ctx.req.body.status),
         url = ctx.req.body.url,
         imgPath = ctx.req.file ? ctx.req.file.path : '',
         pic = imgPath ? imgPath.substr(imgPath.indexOf('\\') + 1) : '',  //   public\upload\1578206047179.jpg
@@ -85,7 +85,7 @@ router.get('/', async (ctx) => {
     let prevPage = ctx.req.body.prevPage || '',
         id = ctx.req.body.id,
         title = ctx.req.body.title.trim(),
-        status = ctx.req.body.status,
+        status = parseInt(ctx.req.body.status),
         url = ctx.req.body.url,
         imgPath = ctx.req.file ? ctx.req.file.path : '',
         pic = imgPath ? imgPath.substr(imgPath.indexOf('\\') + 1) : '',  //   public\upload\1578206047179.jpg

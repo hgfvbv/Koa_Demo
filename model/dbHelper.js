@@ -47,7 +47,7 @@ class DB {
                     sortJson = paramsJson.sort;
                 }
                 if (paramsJson.attr) {
-                    attrJson = paramsJson.attr
+                    attrJson = paramsJson.attr;
                 }
                 break;
             case 4:
@@ -55,7 +55,7 @@ class DB {
                     sortJson = paramsJson.sort;
                 }
                 if (paramsJson.attr) {
-                    attrJson = paramsJson.attr
+                    attrJson = paramsJson.attr;
                 }
                 pageIndex = pageJson.pageIndex || 1;
                 pageSize = pageJson.pageSize || 10;

@@ -1,0 +1,13 @@
+<div id="footer-wrapper">
+    <div class="footer-inner">
+        <p>
+            {{each link}}
+            <a href="{{$value.url}}"
+                target="_blank">{{$value.title}}</a>&nbsp;&nbsp;|&nbsp;
+            {{/each}}
+        </p>
+        <p>Copyright © 2002-2020{{setting.site_title}} 版权所有 Power by KoaCms &nbsp;&nbsp;&nbsp;备案号：{{setting.site_icp}}
+        </p>
+        <p>电话：{{setting.site_tel}} E-mail：{{setting.site_qq}}@qq.com 地址：{{setting.site_address}}</p>
+    </div>
+</div>

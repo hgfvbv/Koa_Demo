@@ -15,7 +15,7 @@ router.get('/', async (ctx) => {
     let title = ctx.request.body.title,
         pid = ctx.request.body.pid,
         keywords = ctx.request.body.keywords,
-        status = ctx.request.body.status,
+        status = parseInt(ctx.request.body.status),
         description = ctx.request.body.description,
         flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
 
@@ -61,7 +61,7 @@ router.get('/', async (ctx) => {
         title = ctx.request.body.title,
         pid = ctx.request.body.pid,
         keywords = ctx.request.body.keywords,
-        status = ctx.request.body.status,
+        status = parseInt(ctx.request.body.status),
         description = ctx.request.body.description,
         flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
 

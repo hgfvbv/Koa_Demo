@@ -1,0 +1,16 @@
+<div id="header-wrapper">
+    <div class="header-inner">
+        <div class="logo">
+            <img src="/{{setting.site_logo}}" alt="{{setting.site_title}}"/>
+        </div>
+        <div class="nav">
+            <ul class="clear">
+                {{each navs}}
+                <li>
+                    <a href="{{$value.url}}" {{if $value.url==pathname }}class="active" {{/if}}>{{$value.title}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

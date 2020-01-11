@@ -16,7 +16,7 @@ router.get('/', async (ctx) => {
         site_qq = ctx.req.body.site_qq,
         site_tel = ctx.req.body.site_tel,
         site_address = ctx.req.body.site_address,
-        site_status = ctx.req.body.site_status,
+        site_status = parseInt(ctx.req.body.site_status),
         edit_time = tools.getTime();
 
     let json = {};

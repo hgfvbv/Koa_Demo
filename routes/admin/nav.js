@@ -44,7 +44,7 @@ router.get('/', async (ctx) => {
     await ctx.render('admin/nav/add');
 }).post('/doAdd', async (ctx) => {
     let title = ctx.request.body.title.trim(),
-        status = ctx.request.body.status,
+        status = parseInt(ctx.request.body.status),
         url = ctx.request.body.url,
         add_time = tools.getTime(),
         edit_time = add_time,
@@ -75,7 +75,7 @@ router.get('/', async (ctx) => {
     let prevPage = ctx.request.body.prevPage || '',
         id = ctx.request.body.id,
         title = ctx.request.body.title.trim(),
-        status = ctx.request.body.status,
+        status = parseInt(ctx.request.body.status),
         url = ctx.request.body.url,
         edit_time = tools.getTime(),
         flag = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]");
