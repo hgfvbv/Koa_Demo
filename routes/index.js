@@ -5,7 +5,6 @@ const router = require('koa-router')(),
 router.use(async (ctx, next) => {
     ctx.state.setting = (await DB.find('setting', {}))[0];
     ctx.state.link = await DB.find('link', { 'status': 1 }, { 'attr': { url: 1, title: 1 }, 'sort': { sort: 1 } });
-    console.log(ctx.state.link)
     ctx.state.pathname = url.parse(ctx.request.url).pathname;
     ctx.state.navs = await DB.find('nav', { 'status': 1 }, { 'sort': { sort: 1 }, 'attr': { 'title': 1, 'url': 1 } });
     await next();
