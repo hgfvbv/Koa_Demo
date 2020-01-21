@@ -6,9 +6,11 @@ const router = require('koa-router')(),
 router.get('/', async (ctx) => {
     let list = (await DB.find('setting', {}))[0];
     await ctx.render('admin/setting/index', { list });
-}).post('/doEdit', tools.multerInit('public/upload/setting').single('site_logo'), async (ctx) => {
+}).post('/doEdit', tools.multerInit('public/upload/setting').fields([{ name: 'site_ico' }, { name: 'site_logo' }]), async (ctx) => {
     let site_title = ctx.req.body.site_title,
-        imgPath = ctx.req.file ? ctx.req.file.path : '',
+        imgIcoPath = ctx.req.files['site_ico'] ? ctx.req.files['site_ico'][0].path : '',
+        site_ico = imgIcoPath ? imgIcoPath.substr(imgIcoPath.indexOf('\\') + 1) : '',
+        imgPath = ctx.req.files['site_logo'] ? ctx.req.files['site_logo'][0].path : '',
         site_logo = imgPath ? imgPath.substr(imgPath.indexOf('\\') + 1) : '',
         site_keywords = ctx.req.body.site_keywords,
         site_description = ctx.req.body.site_description,
@@ -20,15 +22,16 @@ router.get('/', async (ctx) => {
         site_status = parseInt(ctx.req.body.site_status),
         edit_time = tools.getTime();
 
-    let json = {};
+    let json = {
+        site_title, site_keywords, site_description, site_icp, site_policeIcp, site_qq, site_tel, site_address, site_status, edit_time
+    };
+
+    if (site_ico) {
+        json.site_ico = site_ico;
+    }
+
     if (site_logo) {
-        json = {
-            site_title, site_logo, site_keywords, site_description, site_icp, site_policeIcp, site_qq, site_tel, site_address, site_status, edit_time
-        }
-    } else {
-        json = {
-            site_title, site_keywords, site_description, site_icp, site_policeIcp, site_qq, site_tel, site_address, site_status, edit_time
-        }
+        json.site_logo = site_logo;
     }
 
     let result = await DB.update('setting', {}, json);
