@@ -2,12 +2,18 @@
     <div class="footer-inner">
         <p>友情链接：
             {{each link}}
-            <a href="{{$value.url}}"
-                target="_blank">{{$value.title}}</a>&nbsp;&nbsp;|&nbsp;
+            <a href="{{$value.url}}" target="_blank">{{$value.title}}</a>&nbsp;&nbsp;|&nbsp;
             {{/each}}
         </p>
-        <p>Copyright © 2002-2020{{setting.site_title}} 版权所有 Power by KoaCms &nbsp;&nbsp;&nbsp;备案号：{{setting.site_icp}}
-        </p>
+        <p>Copyright © 2019-2020{{setting.site_title}} 版权所有 Power by hgfvbv</p>
         <p>电话：{{setting.site_tel}} E-mail：{{setting.site_qq}}@qq.com 地址：{{setting.site_address}}</p>
+        <p>
+            <a target="blank" href="http://www.beian.miit.gov.cn/"><span
+                    style="color:#939393;">{{setting.site_icp}}</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=33011002014426"
+                style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">&nbsp;<img
+                    src="/default/images/备案图标.png" alt="备案图标" style="float:left;" /><span
+                    style="color:#939393;">{{setting.site_policeIcp}}</span></a>
+        </p>
     </div>
 </div>

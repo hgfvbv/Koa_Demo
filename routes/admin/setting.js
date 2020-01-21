@@ -13,6 +13,7 @@ router.get('/', async (ctx) => {
         site_keywords = ctx.req.body.site_keywords,
         site_description = ctx.req.body.site_description,
         site_icp = ctx.req.body.site_icp,
+        site_policeIcp = ctx.req.body.site_policeIcp,
         site_qq = ctx.req.body.site_qq,
         site_tel = ctx.req.body.site_tel,
         site_address = ctx.req.body.site_address,
@@ -22,11 +23,11 @@ router.get('/', async (ctx) => {
     let json = {};
     if (site_logo) {
         json = {
-            site_title, site_logo, site_keywords, site_description, site_icp, site_qq, site_tel, site_address, site_status, edit_time
+            site_title, site_logo, site_keywords, site_description, site_icp, site_policeIcp, site_qq, site_tel, site_address, site_status, edit_time
         }
     } else {
         json = {
-            site_title, site_keywords, site_description, site_icp, site_qq, site_tel, site_address, site_status, edit_time
+            site_title, site_keywords, site_description, site_icp, site_policeIcp, site_qq, site_tel, site_address, site_status, edit_time
         }
     }
 
