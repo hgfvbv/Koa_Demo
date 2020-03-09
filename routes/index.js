@@ -3,11 +3,17 @@ const router = require('koa-router')(),
     DB = require('../model/dbHelper');
 
 router.use(async (ctx, next) => {
-    ctx.state.setting = (await DB.find('setting', {}))[0];
-    ctx.state.link = await DB.find('link', { 'status': 1 }, { 'attr': { url: 1, title: 1 }, 'sort': { sort: 1 } });
-    ctx.state.pathname = url.parse(ctx.request.url).pathname;
-    ctx.state.navs = await DB.find('nav', { 'status': 1 }, { 'sort': { sort: 1 }, 'attr': { 'title': 1, 'url': 1 } });
-    await next();
+    let siteStatus = (await DB.find('setting', {}, { 'attr': { site_status: 1 } }))[0].site_status;
+    siteStatus == siteStatus ? siteStatus : 1;
+    if (siteStatus == 0) {  //未关闭网站
+        ctx.state.setting = (await DB.find('setting', {}))[0];
+        ctx.state.link = await DB.find('link', { 'status': 1 }, { 'attr': { url: 1, title: 1 }, 'sort': { sort: 1 } });
+        ctx.state.pathname = url.parse(ctx.request.url).pathname;
+        ctx.state.navs = await DB.find('nav', { 'status': 1 }, { 'sort': { sort: 1 }, 'attr': { 'title': 1, 'url': 1 } });
+        await next();
+    } else {  //已关闭网站
+        ctx.body = '对不起！该网站已关闭！如有疑问，请联系网站管理员！';
+    }
 });
 
 router.get('/', async (ctx) => {
