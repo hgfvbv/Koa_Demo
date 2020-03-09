@@ -16,6 +16,7 @@ const router = require('koa-router')(),
 
 router.use(async (ctx, next) => {
     ctx.state.__ROOT__ = 'http://' + ctx.request.header.host;
+    //ctx.state.__ROOT__ = 'https://' + ctx.request.header.host;
     ctx.state.setting = (await DB.find('setting', {}))[0];
 
     let pathname = url.parse(ctx.url).pathname.substr(1);

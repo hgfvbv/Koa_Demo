@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
 	<meta charset="utf-8" />
 	<title>{{title}}</title>
-    <link href="{{__ROOT__}}/{{setting.site_ico}}" rel="shortcut icon" type="image/x-icon">
+	<link href="{{setting.site_ico}}" rel="shortcut icon" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 	<!-- basic styles -->
@@ -19,11 +19,20 @@
 	<script src='{{__HOST__}}/admin/js/jquery-2.0.3.min.js'></script>
 
 	<style type="text/css">
+		body {
+			/* background:#01458E; */
+			/* background: url(https://open.saintic.com/api/bingPic?picSize=2) no-repeat; */
+			background: url(https://api.dujin.org/bing/1920.php) no-repeat;
+			background-size: 100% 100%;
+			background-attachment: fixed;
+		}
+
 		.login-layout {
-			background: #428bca;
+			/* background: #428bca; */
 		}
 
 		.login-layout .widget-box {
+			opacity: 0.85;
 			background-color: #428bca;
 		}
 

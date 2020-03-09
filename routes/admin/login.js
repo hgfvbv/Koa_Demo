@@ -3,7 +3,7 @@ const router = require('koa-router')(),
     validator = require('validator'),
     DB = require('../../model/dbHelper'),
     tools = require('../../model/tools'),
-    title = 'hgfvbv:CMS后台管理系统';
+    title = 'hgfvbv@CMS后台管理系统';
 
 router.get('/', async (ctx) => {
     await ctx.render('admin/login', { title });

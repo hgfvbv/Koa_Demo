@@ -7,6 +7,7 @@ const Koa = require('koa'),
     sd = require('silly-datetime'),
     jsonp = require('koa-jsonp'),
     cors = require('koa2-cors'),
+    compress = require('koa-compress'),
     path = require('path'),
     app = new Koa(),
     admin = require('./routes/admin'),
@@ -41,6 +42,9 @@ router.use('/admin', admin)
     .use(index);
 
 app.use(bodyparser())
+    .use(compress({
+        threshold: 1024
+    }))
     .use(jsonp())
     //配置后台允许跨域    允许跨域安全性如何解决       签名验证
     .use(cors())
